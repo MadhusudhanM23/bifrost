@@ -1,69 +1,27 @@
-# Git
-.git/
-.gitignore
-.github/
-
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Build outputs
-dist/
-build/
-out/
-*.tsbuildinfo
-
-# Logs
-logs/
-*.log
-
-# Environment files
-.env
-.env.*
-*.env
-
-# IDE and editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Testing
-coverage/
-.nyc_output/
-
-# Cache directories
-.cache/
-.parcel-cache/
-
-# Documentation that's not needed for build
+# Scopes the Docker build context (docker-compose.yml uses "context: ./bifrost")
+# to just the Go modules docker/bifrost.Dockerfile actually COPYs. Without this,
+# the context would include the fork's >1GB .git history, ~600MB of docs, the
+# Next.js dashboard, terraform, tests, etc. -- none of which bifrost-http needs.
+.git
 docs/
-README.md
-*.md
-
-# CI/CD
-ci/
-
-# Plugin build artifacts
-plugins/*/dist/
-
-# Test directories
 tests/
-test/
-__tests__/
+ui/
+terraform/
+helm-charts/
+scripts/
+examples/
+community/
+cmd/
+npx/
+recipes/
+nix/
+.github/
+.claude/
+.greptile/
+node_modules
+**/*.log
 
-# Temporary files
-tmp/
-temp/
-.tmp/
-
-# Go workspaces (local only)
-go.work
-go.work.sum
+# Only transports/bifrost-http/ui matters (the //go:embed placeholder the
+# Dockerfile creates); the rest of transports/ui (the dashboard app) is excluded
+# above via "ui/" at the repo root -- this covers transports/ui/ too since
+# "ui/" without a leading slash matches at any depth.
